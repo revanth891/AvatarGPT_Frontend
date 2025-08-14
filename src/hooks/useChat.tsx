@@ -6,8 +6,8 @@ import {
   ReactNode,
 } from "react";
 
-const backendUrl = "http://localhost:3000";
-// const backendUrl = "https://02716141c45a.ngrok-free.app";
+// const backendUrl = "http://localhost:3000";
+const backendUrl = "https://fe2dc859bd4c.ngrok-free.app";
 
 
 interface Message {
