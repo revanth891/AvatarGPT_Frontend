@@ -40,28 +40,8 @@ export const UI = ({
   const [mode, setMode] = useState<"text" | "voice">("text");
   const [darkMode, setDarkMode] = useState(true);
   const [isRecording, setIsRecording] = useState(false);
-  const [keyboardOffset, setKeyboardOffset] = useState(0);
-
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<BlobPart[]>([]);
-
-  // Detect mobile keyboard height changes
-  useEffect(() => {
-    if (window.visualViewport) {
-      const handleResize = () => {
-        const viewport = window.visualViewport;
-        const heightDiff = window.innerHeight - viewport.height;
-        setKeyboardOffset(heightDiff > 0 ? heightDiff : 0);
-      };
-      window.visualViewport.addEventListener("resize", handleResize);
-      window.visualViewport.addEventListener("scroll", handleResize);
-      handleResize();
-      return () => {
-        window.visualViewport.removeEventListener("resize", handleResize);
-        window.visualViewport.removeEventListener("scroll", handleResize);
-      };
-    }
-  }, []);
 
   // Default avatar
   useEffect(() => {
@@ -237,10 +217,7 @@ export const UI = ({
       </div>
 
       {/* BOTTOM CENTER INPUT */}
-      <div
-        className="fixed left-0 w-full flex justify-center px-3 sm:px-0 pointer-events-auto"
-        style={{ bottom: `${keyboardOffset > 0 ? keyboardOffset : 16}px` }}
-      >
+      <div className="mb-[1.5rem] sm:mb-[5rem] self-center pointer-events-auto w-full flex justify-center px-3 sm:px-0">
         {mode === "text" ? (
           <div
             className={`gradient-border w-full sm:min-w-[42rem] sm:max-w-[55rem] ${
@@ -256,12 +233,6 @@ export const UI = ({
                     : "text-black placeholder-black"
                 }`}
                 placeholder="Type your message..."
-                onFocus={() => {
-                  input.current?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "center",
-                  });
-                }}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" && !e.shiftKey) {
                     e.preventDefault();
@@ -285,3 +256,20 @@ export const UI = ({
     </div>
   );
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
