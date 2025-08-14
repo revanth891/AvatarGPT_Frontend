@@ -1,3 +1,5 @@
+
+
 import { useEffect, useState } from "react";
 import { useChat } from "../hooks/useChat";
 
@@ -18,7 +20,7 @@ export const ChatOverlay = ({ darkMode }: { darkMode: boolean }) => {
     if (isMobile && messages.length > 0) {
       setShowHistory(true);
       // auto-hide after a few seconds if you want:
-      // setTimeout(() => setShowHistory(false), 5000);
+      setTimeout(() => setShowHistory(false), 5000);
     }
   }, [messages, isMobile]);
 
@@ -29,7 +31,7 @@ export const ChatOverlay = ({ darkMode }: { darkMode: boolean }) => {
           ? `fixed left-0 w-full px-2 pb-[4.5rem] sm:pb-0` // space for search bar
           : `absolute bottom-5 left-1/2 transform -translate-x-1/2 w-[1000px] max-w-full`
         }
-        ${isMobile && showHistory ? "bottom-[4.5rem] opacity-100" : isMobile ? "bottom-0 opacity-0 pointer-events-none" : ""}`}
+        ${isMobile && showHistory ? "bottom-[1rem] opacity-100" : isMobile ? "bottom-0 opacity-0 pointer-events-none" : ""}`}
       style={{
         transform: isMobile
           ? `translateY(${showHistory ? "0%" : "100%"})`
@@ -39,7 +41,7 @@ export const ChatOverlay = ({ darkMode }: { darkMode: boolean }) => {
       <div className="gradient-border rounded-2xl">
         <div
           className={`inner rounded-2xl p-4 shadow-xl transition-all duration-500 ${
-            darkMode ? "bg-white/10 text-white" : "bg-black/5 text-black"
+            darkMode ? "bg-white/10 text-white" : "bg-black/5 text-white"
           }`}
           style={{
             backgroundImage: darkMode
@@ -50,7 +52,7 @@ export const ChatOverlay = ({ darkMode }: { darkMode: boolean }) => {
         >
           <h2
             className={`text-lg font-semibold text-center mb-3 ${
-              darkMode ? "text-white" : "text-black"
+              darkMode ? "text-white" : "text-white"
             }`}
           >
             Your AI Response
@@ -64,7 +66,7 @@ export const ChatOverlay = ({ darkMode }: { darkMode: boolean }) => {
                   className={`rounded-lg px-3 py-2 text-sm shadow-sm border ${
                     darkMode
                       ? "bg-white/10 border-white/10 text-white"
-                      : "bg-black/5 border-black/10 text-black"
+                      : "bg-black/5 border-black/10 text-white"
                   }`}
                 >
                   {msg.text}
@@ -73,7 +75,7 @@ export const ChatOverlay = ({ darkMode }: { darkMode: boolean }) => {
             ) : (
               <p
                 className={`text-center text-sm ${
-                  darkMode ? "text-white/60" : "text-black/60"
+                  darkMode ? "text-white/60" : "text-white/60"
                 }`}
               >
                 Ask something to begin!
