@@ -63,13 +63,13 @@ export const ChatProvider = ({ children }: ChatProviderProps) => {
       const resp = await data.json();
       const newMessages = resp.messages as Message[];
 
-      // Preload audio
-      for (const msg of newMessages) {
-        const audio = new Audio(`data:audio/mp3;base64,${msg.audio}`);
-        await audio.play().catch(() => {});
-        audio.pause();
-        audio.currentTime = 0;
-      }
+      // // Preload audio
+      // for (const msg of newMessages) {
+      //   const audio = new Audio(`data:audio/mp3;base64,${msg.audio}`);
+      //   await audio.play().catch(() => {});
+      //   audio.pause();
+      //   audio.currentTime = 0;
+      // }
 
       // ✅ Append to history
       setMessages((prev) => [...prev, ...newMessages]);
