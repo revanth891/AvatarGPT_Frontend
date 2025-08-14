@@ -7,7 +7,7 @@ import {
 } from "react";
 
 // const backendUrl = "http://localhost:3000";
-const backendUrl = "https://fe2dc859bd4c.ngrok-free.app";
+const backendUrl = "https://vulture-assuring-mammoth.ngrok-free.app";
 
 
 interface Message {
