@@ -1,5 +1,6 @@
 
 
+
 import { useRef, useState, useEffect } from "react";
 import { useChat } from "../hooks/useChat";
 import { useTranscribe } from "../hooks/useTranscribe";
@@ -40,17 +41,16 @@ export const UI = ({
   } = useTranscribe();
 
   const [mode, setMode] = useState<"text" | "voice">("text");
-  const [darkMode, setDarkMode] = useState(true); // Light mode default
+  const [darkMode, setDarkMode] = useState(true);
   const [isRecording, setIsRecording] = useState(false);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<BlobPart[]>([]);
 
-  // ✅ Set default avatar to "stylized" on mount
+  // Default avatar
   useEffect(() => {
     setSelectedModel("stylized");
   }, [setSelectedModel]);
 
-  // Send text message
   const sendMessage = () => {
     if (input.current && input.current.value.trim() !== "") {
       chat(input.current.value);
@@ -58,7 +58,6 @@ export const UI = ({
     }
   };
 
-  // Voice recording
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -95,7 +94,6 @@ export const UI = ({
     }
   };
 
-  // Camera control
   const setCameraState = (state: "zoomed" | "default" | "zoomout") => {
     setChatCameraState(state);
     setTranscribeCameraState(state);
@@ -104,7 +102,6 @@ export const UI = ({
   const loading = chatLoading || transcribeLoading;
   const message = chatMessage || transcribeMessage;
 
-  // Styled button
   const Button = ({
     icon,
     label,
@@ -116,7 +113,7 @@ export const UI = ({
   }) => (
     <button
       onClick={onClick}
-      className={`group flex items-center gap-2 px-3 py-2 rounded-full text-sm font-semibold 
+      className={`group flex items-center gap-2 px-2 sm:px-3 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold 
                  backdrop-blur-md border shadow-md transition-all duration-300 w-fit
                  ${
                    darkMode
@@ -143,35 +140,35 @@ export const UI = ({
       } ${darkMode ? "text-white" : "text-black"}`}
     >
       {/* Dark Mode Toggle */}
-      <div className="absolute top-4 right-4 pointer-events-auto">
+      <div className="absolute top-3 right-3 sm:top-4 sm:right-4 pointer-events-auto">
         <button
           onClick={() => setDarkMode((prev) => !prev)}
-          className="gradient-border p-2 rounded-full backdrop-blur-md shadow-md transition-all duration-300"
+          className="gradient-border p-1.5 sm:p-2 rounded-full backdrop-blur-md shadow-md transition-all duration-300"
         >
           {darkMode ? (
-            <Sun size={20} className="text-yellow-300" />
+            <Sun size={18} className="sm:size-5 text-yellow-300" />
           ) : (
-            <Moon size={20} className="text-blue-500" />
+            <Moon size={18} className="sm:size-5 text-blue-500" />
           )}
         </button>
       </div>
 
       {/* LEFT SIDE BUTTONS */}
-      <div className="absolute top-6 left-4 flex flex-col gap-4 pointer-events-auto">
+      <div className="absolute top-4 sm:top-6 left-2 sm:left-4 flex flex-col gap-2 sm:gap-4 pointer-events-auto">
         <div className={`gradient-border ${darkMode ? "dark-gradient" : ""}`}>
-          <div className="inner p-3 flex flex-col gap-3">
+          <div className="inner p-2 sm:p-3 flex flex-col gap-2 sm:gap-3">
             <Button
-              icon={<ZoomIn size={20} />}
+              icon={<ZoomIn size={16} className="sm:size-5" />}
               label="Zoom In"
               onClick={() => setCameraState("zoomed")}
             />
             <Button
-              icon={<RotateCcw size={20} />}
+              icon={<RotateCcw size={16} className="sm:size-5" />}
               label="Default"
               onClick={() => setCameraState("default")}
             />
             <Button
-              icon={<ZoomOut size={20} />}
+              icon={<ZoomOut size={16} className="sm:size-5" />}
               label="Zoom Out"
               onClick={() => setCameraState("zoomout")}
             />
@@ -179,24 +176,24 @@ export const UI = ({
         </div>
 
         <div className={`gradient-border ${darkMode ? "dark-gradient" : ""}`}>
-          <div className="inner p-3 flex flex-col gap-3">
+          <div className="inner p-2 sm:p-3 flex flex-col gap-2 sm:gap-3">
             <Button
-              icon={<User size={20} />}
+              icon={<User size={16} className="sm:size-5" />}
               label="Female"
               onClick={() => setSelectedModel("female")}
             />
             <Button
-              icon={<Palette size={20} />}
+              icon={<Palette size={16} className="sm:size-5" />}
               label="Stylized"
               onClick={() => setSelectedModel("stylized")}
             />
             <Button
-              icon={<Dog size={20} />}
+              icon={<Dog size={16} className="sm:size-5" />}
               label="Shiba"
               onClick={() => setSelectedModel("shiba")}
             />
             <Button
-              icon={<Camera size={20} />}
+              icon={<Camera size={16} className="sm:size-5" />}
               label="Male"
               onClick={() => setSelectedModel("wawa")}
             />
@@ -205,16 +202,16 @@ export const UI = ({
       </div>
 
       {/* TOP CENTER MODE SWITCHER */}
-      <div className="p-6 flex justify-center w-full pointer-events-auto">
+      <div className="p-3 sm:p-6 flex justify-center w-full pointer-events-auto">
         <div className={`gradient-border ${darkMode ? "dark-gradient" : ""}`}>
-          <div className="inner flex gap-3 p-3 rounded-full">
+          <div className="inner flex gap-2 sm:gap-3 p-2 sm:p-3 rounded-full">
             <Button
-              icon={<MessageSquareText size={18} />}
+              icon={<MessageSquareText size={14} className="sm:size-4" />}
               label="Text"
               onClick={() => setMode("text")}
             />
             <Button
-              icon={<Mic size={18} />}
+              icon={<Mic size={14} className="sm:size-4" />}
               label="Voice"
               onClick={() => setMode("voice")}
             />
@@ -223,17 +220,17 @@ export const UI = ({
       </div>
 
       {/* BOTTOM CENTER INPUT */}
-      <div className="mb-[5rem] self-center pointer-events-auto w-full flex justify-center">
+      <div className="mb-[1.5rem] sm:mb-[5rem] self-center pointer-events-auto w-full flex justify-center px-3 sm:px-0">
         {mode === "text" ? (
           <div
-            className={`gradient-border min-w-[42rem] max-w-[55rem] ${
+            className={`gradient-border w-full sm:min-w-[42rem] sm:max-w-[55rem] ${
               darkMode ? "dark-gradient" : ""
             }`}
           >
-            <div className="inner flex rounded-full px-6 py-3 gap-3">
+            <div className="inner flex rounded-full px-4 sm:px-6 py-2 sm:py-3 gap-2 sm:gap-3">
               <input
                 ref={input}
-                className={`flex-1 bg-transparent outline-none placeholder:opacity-60 text-lg ${
+                className={`flex-1 bg-transparent outline-none placeholder:opacity-60 text-base sm:text-lg ${
                   darkMode
                     ? "text-white placeholder-white"
                     : "text-black placeholder-black"
@@ -247,37 +244,35 @@ export const UI = ({
                 }}
               />
               <Button
-                icon={<Send size={20} />}
+                icon={<Send size={18} className="sm:size-5" />}
                 label="Send"
                 onClick={sendMessage}
               />
             </div>
           </div>
         ) : (
-          <div
-            className={`gradient-border ${darkMode ? "dark-gradient" : ""}`}
-          >
-{/*             <div className="inner flex flex-col items-center gap-4 text-sm px-6 py-4">
-              <Button
-                icon={<Mic size={24} />}
-                label={isRecording ? "Stop" : "Record"}
-                onClick={isRecording ? stopRecording : startRecording}
-              />
-              <div
-                className={`text-center opacity-80 ${
-                  darkMode ? "text-white" : "text-black"
-                }`}
-              >
-                {isRecording
-                  ? "Recording... Tap to stop."
-                  : loading
-                  ? "Processing..."
-                  : "Tap to record your message."}
-              </div> */}
-            </div>
+          <div className={`gradient-border ${darkMode ? "dark-gradient" : ""}`}>
+            {/* voice mode UI here */}
           </div>
         )}
       </div>
     </div>
   );
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
