@@ -281,7 +281,7 @@ export const UI = ({
           <div
             className={`gradient-border ${darkMode ? "dark-gradient" : ""}`}
           >
-            { <div className="inner flex flex-col items-center gap-4 text-sm px-6 py-4">
+{/*             { <div className="inner flex flex-col items-center gap-4 text-sm px-6 py-4">
               <Button
                 icon={<Mic size={24} />}
                 label={isRecording ? "Stop" : "Record"}
@@ -298,7 +298,7 @@ export const UI = ({
                   ? "Processing..."
                   : "Tap to record your message."}
               </div>
-            </div> }
+            </div> } */}
           </div>
         )}
       </div>
