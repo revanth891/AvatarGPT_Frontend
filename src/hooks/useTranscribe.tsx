@@ -1,105 +1,3 @@
-// import {
-//     createContext,
-//     useContext,
-//     useEffect,
-//     useState,
-//     ReactNode,
-// } from "react";
-
-// const backendUrl = "http://localhost:3000";
-
-// interface Message {
-//     animation: string;
-//     facialExpression: string;
-//     lipsync: {
-//         mouthCues: Array<{
-//             start: number;
-//             end: number;
-//             value: string;
-//         }>;
-//     };
-//     audio: string;
-// }
-
-// interface TranscribeContextType {
-//     transcribe: (audioFile: File) => Promise<void>;
-//     message: Message | null;
-//     onMessagePlayed: () => void;
-//     loading: boolean;
-//     cameraState: "zoomed" | "default" | "zoomeout";
-//     setCameraState: (state: "zoomed" | "default" | "zoomeout") => void;
-// }
-
-// interface TranscribeProviderProps {
-//     children: ReactNode;
-// }
-
-// const TranscribeContext = createContext<TranscribeContextType | undefined>(undefined);
-
-// export const TranscribeProvider = ({ children }: TranscribeProviderProps) => {
-//     const [messages, setMessages] = useState<Message[]>([]);
-//     const [message, setMessage] = useState<Message | null>(null);
-//     const [loading, setLoading] = useState(false);
-//     const [cameraState, setCameraState] = useState<
-//         "zoomed" | "default" | "zoomeout"
-//     >("default");
-
-//     const transcribe = async (audioFile: File) => {
-//         setLoading(true);
-//         try {
-//             const formData = new FormData();
-//             formData.append('audio', audioFile);
-
-//             const data = await fetch(`${backendUrl}/transcribe`, {
-//                 method: "POST",
-//                 body: formData,
-//             });
-//             const resp = await data.json();
-//             const newMessages = resp.messages as Message[];
-//             setMessages((prevMessages) => [...prevMessages, ...newMessages]);
-//         } catch (error) {
-//             console.error("Error in transcribe:", error);
-//         } finally {
-//             setLoading(false);
-//         }
-//     };
-
-//     const onMessagePlayed = () => {
-//         setMessages((messages) => messages.slice(1));
-//     };
-
-//     useEffect(() => {
-//         if (messages.length > 0) {
-//             setMessage(messages[0]);
-//         } else {
-//             setMessage(null);
-//         }
-//     }, [messages]);
-
-//     return (
-//         <TranscribeContext.Provider
-//             value={{
-//                 transcribe,
-//                 message,
-//                 onMessagePlayed,
-//                 loading,
-//                 cameraState,
-//                 setCameraState,
-//             }}
-//         >
-//             {children}
-//         </TranscribeContext.Provider>
-//     );
-// };
-
-// export const useTranscribe = (): TranscribeContextType => {
-//     const context = useContext(TranscribeContext);
-//     if (!context) {
-//         throw new Error("useTranscribe must be used within a TranscribeProvider");
-//     }
-//     return context;
-// }; 
-
 import {
     createContext,
     useContext,
@@ -108,7 +6,9 @@ import {
     ReactNode,
 } from "react";
 
-const backendUrl = "http://localhost:3000";
+// const backendUrl = "http://localhost:3000";
+const backendUrl = "https://avatargpt-backend.onrender.com";
+
 
 interface Message {
     animation: string;
@@ -211,3 +111,5 @@ export const useTranscribe = (): TranscribeContextType => {
     }
     return context;
 };
+
+
