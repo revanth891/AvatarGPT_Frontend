@@ -243,7 +243,7 @@ export const UI = ({
       >
         {mode === "text" ? (
           <div
-            className={`gradient-border w-full sm:min-w-[42rem] sm:max-w-[55rem] ${
+            className={`gradient-border w-half sm:min-w-[42rem] sm:max-w-[55rem] ${
               darkMode ? "dark-gradient" : ""
             }`}
           >
