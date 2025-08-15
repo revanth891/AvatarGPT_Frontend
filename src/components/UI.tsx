@@ -1,3 +1,4 @@
+
 import { useRef, useState, useEffect } from "react";
 import { useChat } from "../hooks/useChat";
 import { useTranscribe } from "../hooks/useTranscribe";
@@ -277,8 +278,27 @@ export const UI = ({
             </div>
           </div>
         ) : (
-          <div className={`gradient-border ${darkMode ? "dark-gradient" : ""}`}>
-            {/* voice mode UI here */}
+          <div
+            className={`gradient-border ${darkMode ? "dark-gradient" : ""}`}
+          >
+            { <div className="inner flex flex-col items-center gap-4 text-sm px-6 py-4">
+              <Button
+                icon={<Mic size={24} />}
+                label={isRecording ? "Stop" : "Record"}
+                onClick={isRecording ? stopRecording : startRecording}
+              />
+              <div
+                className={`text-center opacity-80 ${
+                  darkMode ? "text-white" : "text-black"
+                }`}
+              >
+                {isRecording
+                  ? "Recording... Tap to stop."
+                  : loading
+                  ? "Processing..."
+                  : "Tap to record your message."}
+              </div>
+            </div> }
           </div>
         )}
       </div>
