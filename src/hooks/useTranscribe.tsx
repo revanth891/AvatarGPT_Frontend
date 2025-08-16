@@ -62,10 +62,10 @@ export const TranscribeProvider = ({ children }: TranscribeProviderProps) => {
             const newMessages = resp.messages as Message[];
 
             for (const msg of newMessages) {
-                const audio = new Audio(`data:audio/mp3;base64,${msg.audio}`);
-                await audio.play().catch(() => {});
-                audio.pause();
-                audio.currentTime = 0;
+                // const audio = new Audio(`data:audio/mp3;base64,${msg.audio}`);
+                // await audio.play().catch(() => {});
+                // audio.pause();
+                // audio.currentTime = 0;
             }
 
             setMessages((prevMessages) => [...prevMessages, ...newMessages]);
