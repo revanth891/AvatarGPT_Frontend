@@ -6,8 +6,8 @@ import {
   ReactNode,
 } from "react";
 
-const backendUrl = "https://avatargpt-backend.onrender.com";
-// const backendUrl = "https://vulture-assuring-mammoth.ngrok-free.app";
+// const backendUrl = "https://avatargpt-backend.onrender.com";
+const backendUrl = "https://3000-firebase-avatargptbackend-1755430266069.cluster-qxqlf3vb3nbf2r42l5qfoebdry.cloudworkstations.dev/p";
 
 
 interface Message {
