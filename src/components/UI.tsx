@@ -642,7 +642,7 @@ export const UI = ({
 
       {/* BOTTOM CENTER INPUT */}
       <div
-        className="fixed left-0 w-full flex justify-center px-5 sm:px-0 pointer-events-auto"
+        className="fixed left-0 w-half flex justify-center px-5 sm:px-0 pointer-events-auto"
         style={{ bottom: `${keyboardOffset > 0 ? keyboardOffset : 16}px` }}
       >
         {mode === "text" ? (
