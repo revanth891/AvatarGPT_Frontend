@@ -126,22 +126,63 @@ export function Avatar(props: AvatarProps) {
   }, [scene]);
 
   // On new message
+  // useEffect(() => {
+  //   console.log("Incoming message:", message);
+  //   if (!message) {
+  //     setAnimation("Idle");
+  //     return;
+  //   }
+  //   setAnimation(message.animation);
+  //   setFacialExpression(message.facialExpression);
+
+  //   const audio = new Audio("data:audio/mp3;base64," + message.audio);
+  //   lipsyncManager.connectAudio(audio); 
+  //   audio.play();
+  //   setAudio(audio);
+  //   audio.onended = onMessagePlayed;
+  // }, [message, onMessagePlayed]);
+
+
+
+
   useEffect(() => {
-    console.log("Incoming message:", message);
-    if (!message) {
-      setAnimation("Idle");
-      return;
-    }
-    setAnimation(message.animation);
-    setFacialExpression(message.facialExpression);
+  if (!message) {
+    setAnimation("Idle");
+    return;
+  }
 
-    const audio = new Audio("data:audio/mp3;base64," + message.audio);
-    lipsyncManager.connectAudio(audio); 
-    audio.play();
-    setAudio(audio);
-    audio.onended = onMessagePlayed;
-  }, [message, onMessagePlayed]);
+  setAnimation(message.animation);
+  setFacialExpression(message.facialExpression);
 
+  // cleanup previous audio if still playing
+  if (audio) {
+    audio.pause();
+    audio.currentTime = 0;
+  }
+
+  // create fresh audio
+  const newAudio = new Audio("data:audio/mp3;base64," + message.audio);
+  lipsyncManager.connectAudio(newAudio);
+
+  newAudio.onended = () => {
+    onMessagePlayed?.();
+  };
+
+  // play safely
+  newAudio.play().catch((err) => {
+    console.warn("Audio play failed:", err);
+  });
+
+  setAudio(newAudio);
+
+  return () => {
+    // cleanup if effect re-runs (StrictMode dev runs twice)
+    newAudio.pause();
+    newAudio.currentTime = 0;
+  };
+}, [message?.audio]); // 👈 only re-run when audio string changes
+
+  
   // // Animate body
   // useEffect(() => {
   //   actions[animation]
